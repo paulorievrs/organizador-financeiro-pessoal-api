@@ -18,11 +18,11 @@ class ExpenseFactory extends Factory
         return [
             'description' => $this->faker->realText(20),
             'value' => $this->faker->randomDigitNotNull(),
-            'type_id' => ExpenseTypes::all()->random(1)[0]->id,
+            'type_id' => ExpenseTypes::all()->random(1)->first()->id,
             'is_archived' => $this->faker->boolean(),
-            'month' => $this->faker->unique()->numberBetween(1, 12),
+            'date' => $this->faker->date(),
             'deadline' => $this->faker->date(),
-            'user_id' => User::all()->random(1)[0]->id
+            'user_id' => User::all()->random(1)->first()->id
         ];
     }
 }

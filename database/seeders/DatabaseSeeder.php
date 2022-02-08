@@ -6,6 +6,7 @@ use App\Models\Expense;
 use App\Models\ExpenseTypes;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use Tests\Utilities;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,15 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        ExpenseTypes::insert([
-            [
-                'name' => 'fixed'
-            ],
-            [
-                'name' => 'variable'
-            ]
-
-        ]);
+        Utilities::generateStandards();
 
         Expense::factory(10)->create();
 

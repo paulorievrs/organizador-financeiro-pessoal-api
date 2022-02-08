@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExpenseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,13 @@ Route::group(['middleware' => 'jwt'], function () {
 
    Route::group(['prefix' => 'auth'], function () {
       Route::post('/logout', [ AuthController::class, 'logout' ]);
+   });
+
+   Route::group(['prefix' => 'expenses'], function () {
+       Route::get('/', [ ExpenseController::class, 'list' ] );
+       Route::post('/', [ ExpenseController::class, 'create' ] );
+       Route::put('/{expenseId}', [ ExpenseController::class, 'update' ] );
+       Route::delete('/{expenseId}', [ ExpenseController::class, 'delete' ] );
    });
 
 });
