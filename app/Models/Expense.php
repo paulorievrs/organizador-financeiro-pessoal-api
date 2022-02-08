@@ -16,7 +16,7 @@ class Expense extends Model
         'value',
         'type_id',
         'is_archived',
-        'month',
+        'date',
         'deadline',
         'user_id'
     ];

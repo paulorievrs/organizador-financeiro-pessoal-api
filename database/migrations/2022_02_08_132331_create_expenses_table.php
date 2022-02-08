@@ -21,7 +21,7 @@ class CreateExpensesTable extends Migration
             $table->foreignId('type_id')->references('id')->on('expense_types');
             $table->boolean('is_archived')->default(false);
 
-            $table->integer('month')->nullable();
+            $table->date('date')->nullable();
             $table->date('deadline')->nullable();
             $table->foreignId('user_id')->references('id')->on('users');
 
