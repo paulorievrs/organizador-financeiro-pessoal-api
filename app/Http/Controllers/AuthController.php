@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    private UserRepository $userRepository;
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
 
     /**
      * Get a JWT via given credentials.
@@ -56,6 +62,19 @@ class AuthController extends Controller
     public function refresh(): JsonResponse
     {
         return $this->respondWithToken(auth()->refresh());
+    }
+
+    /**
+     * Register a new user on database
+     * @param RegisterRequest $request
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request): JsonResponse
+    {
+        $payload = $request->validated();
+        $createdUser = $this->userRepository->create($payload);
+        return response()->json($createdUser);
+
     }
 
     /**
