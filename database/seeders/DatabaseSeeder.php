@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expense;
+use App\Models\ExpenseTypes;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
+
+        ExpenseTypes::insert([
+            [
+                'name' => 'fixed'
+            ],
+            [
+                'name' => 'variable'
+            ]
+
+        ]);
+
+        Expense::factory(10)->create();
+
     }
 }
