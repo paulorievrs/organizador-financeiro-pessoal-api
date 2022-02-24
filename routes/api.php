@@ -25,7 +25,8 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => 'jwt'], function () {
 
    Route::group(['prefix' => 'auth'], function () {
-      Route::post('/logout', [ AuthController::class, 'logout' ]);
+       Route::post('/logout', [ AuthController::class, 'logout' ]);
+       Route::get('/me', [ AuthController::class, 'me' ]);
    });
 
    Route::group(['prefix' => 'expenses'], function () {

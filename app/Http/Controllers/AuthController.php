@@ -6,6 +6,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -72,6 +73,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         $payload = $request->validated();
+        $payload['password'] = Hash::make($payload['password']);
         $createdUser = $this->userRepository->create($payload);
         return response()->json($createdUser);
 
@@ -89,7 +91,8 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'user' => auth()->user()
         ]);
     }
 }

@@ -45,4 +45,12 @@ class AuthControllerTest extends TestCase
         $this->assertDatabaseHas('users', $payload);
     }
 
+    public function test_user_can_get_his_data()
+    {
+        $headers = Utilities::getAuthHeaders(true);
+
+        $response = $this->get('/api/auth/me', $headers);
+        $response->assertOk();
+    }
+
 }
