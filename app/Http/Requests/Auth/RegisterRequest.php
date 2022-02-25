@@ -30,4 +30,14 @@ class RegisterRequest extends FormRequest
             'passwordConfirm' => 'min:6|required'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'nome completo',
+            'email' => 'email',
+            'password' => 'senha',
+            'passwordConfirm' => 'confirmar senha'
+        ];
+    }
 }
