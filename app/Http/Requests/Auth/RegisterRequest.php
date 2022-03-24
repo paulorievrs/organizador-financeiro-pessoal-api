@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [
             'name' => 'nome completo',
