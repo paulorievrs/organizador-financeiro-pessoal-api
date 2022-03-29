@@ -37,12 +37,18 @@ class AuthControllerTest extends TestCase
         $payload = [
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
+            'passwordConfirm' => 'password',
         ];
 
         $response = $this->post('/api/auth/register', $payload);
         $response->assertOk();
-        $this->assertDatabaseHas('users', $payload);
+        unset($payload['passwordConfirm']);
+        unset($payload['password']);
+
+        $responseArray = json_decode($response->getContent(), true);
+        $user = User::find($responseArray['id']);
+        $this->assertEquals($responseArray, $user->toArray());
     }
 
     public function test_user_can_get_his_data()
