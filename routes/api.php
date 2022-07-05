@@ -32,6 +32,7 @@ Route::group(['middleware' => 'jwt'], function () {
    Route::group(['prefix' => 'expenses'], function () {
        Route::get('/', [ ExpenseController::class, 'list' ] );
        Route::post('/', [ ExpenseController::class, 'create' ] );
+       Route::get('/types', [ ExpenseController::class, 'fetchExpensesType' ] );
        Route::put('/{expenseId}', [ ExpenseController::class, 'update' ] );
        Route::delete('/{expenseId}', [ ExpenseController::class, 'delete' ] );
    });

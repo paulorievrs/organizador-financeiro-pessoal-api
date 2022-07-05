@@ -3,13 +3,17 @@
 namespace App\Repositories;
 
 use App\Models\Expense;
+use App\Models\ExpenseTypes;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseRepository extends MainRepository
 {
-    public function __construct(Expense $model)
+    private $expenseTypesModel;
+    public function __construct(Expense $model, ExpenseTypes $expenseTypesModel)
     {
         $this->model = $model;
+        $this->expenseTypesModel = $expenseTypesModel;
+
     }
 
     /**
@@ -84,5 +88,10 @@ class ExpenseRepository extends MainRepository
         if(!$expense) return null;
 
         return $expense->delete();
+    }
+
+    public function fetchExpenseTypes()
+    {
+        return $this->expenseTypesModel->all();
     }
 }

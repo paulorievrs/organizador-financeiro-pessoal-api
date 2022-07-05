@@ -82,4 +82,10 @@ class ExpenseController extends Controller
         return response()->json($deleted);
     }
 
+    public function fetchExpensesType(): JsonResponse
+    {
+        $expensesTypes = $this->expenseRepository->fetchExpenseTypes();
+        return response()->json($expensesTypes);
+    }
+
 }
